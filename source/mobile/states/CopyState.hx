@@ -17,7 +17,7 @@ import sys.io.Process;
  * ...
  * @author: Karim Akra
  */
-class CopyState extends MusicBeatState
+class CopyState extends funkin.backend.MusicBeatState
 {
 	private static final textFilesExtensions:Array<String> = ['ini', 'txt', 'xml', 'hxs', 'hx', 'hxc', 'lua', 'json', 'frag', 'vert'];
 	public static final IGNORE_FOLDER_FILE_NAME:String = "CopyState-Ignore.txt";
