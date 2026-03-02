@@ -25,6 +25,9 @@ import android.os.BatteryManager as AndroidBatteryManager;
 #end
    
 import funkin.backend.Paths;
+import funkin.backend.MusicBeatState;
+import funkin.backend.MusicBeatSubstate;
+import flixel.FlxSprite;
 
 using StringTools;
 #end
