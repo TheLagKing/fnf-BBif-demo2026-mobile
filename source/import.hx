@@ -9,6 +9,27 @@ import sys.*;
 import sys.io.*;
 #end
 
+import funkin.backend.MusicBeatState;
+import funkin.backend.MusicBeatSubstate;
+import funkin.backend.CustomFadeTransition;
+import funkin.backend.FunkinRatioScaleMode;
+import funkin.backend.Conductor;
+import funkin.backend.BaseStage;
+import funkin.backend.Difficulty;
+import funkin.backend.Mods;
+
+import funkin.data.Controls;
+import funkin.data.ClientPrefs;
+
+import funkin.utils.CoolUtil;
+import funkin.utils.MathUtil;
+
+import funkin.objects.Alphabet;
+import funkin.objects.BGSprite;
+
+import funkin.states.PlayState;
+import funkin.states.LoadingState;
+
 import mobile.backend.SUtil;
 
 //Android
@@ -25,9 +46,20 @@ import android.os.BatteryManager as AndroidBatteryManager;
 #end
    
 import funkin.backend.Paths;
-import funkin.backend.MusicBeatState;
-import funkin.backend.MusicBeatSubstate;
+import flixel.sound.FlxSound;
+import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.FlxCamera;
+import flixel.math.FlxMath;
+import flixel.math.FlxPoint;
+import flixel.util.FlxColor;
+import flixel.util.FlxTimer;
+import flixel.text.FlxText;
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
+import flixel.group.FlxSpriteGroup;
+import flixel.group.FlxGroup.FlxTypedGroup;
 
 using StringTools;
+using funkin.backend.FlxObjectTools;
 #end
