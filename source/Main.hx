@@ -7,7 +7,7 @@ import haxe.Json;
 import haxe.io.Path;
 
 #if android
-import android.content.Context;
+//import android.content.Context;
 #end
 
 import lime.app.Application;
@@ -37,6 +37,11 @@ import flixel.FlxGame;
 import flixel.FlxState;
 
 import funkin.backend.ClientPrefs;
+
+import lime.app.Application;
+import lime.system.System as LimeSystem;
+
+import mobile.states.CopyState;
 
 // crash handler stuff
 #if CRASH_HANDLER
@@ -72,14 +77,23 @@ class Main extends Sprite
 		#if (windows && cpp && !debug)
 		funkin.backend.system.Windows.setDpiAware();
 		#end
+
+		#if mobile
+ 		#if android
+ 		SUtil.requestPermissions();
+ 		#end
+ 		Sys.setCwd(SUtil.getStorageDirectory());
+ 		#end
+		mobile.backend.CrashHandler.init();
 		
+		/*
 		// Credits to MAJigsaw77 (he's the og author for this code)
 		#if android
 		Sys.setCwd(Path.addTrailingSlash(Context.getExternalFilesDir()));
 		#elseif ios
 		Sys.setCwd(lime.system.System.applicationStorageDirectory);
 		#end
-		
+		*/
 		ClientPrefs.tryBindingSave('funkin');
 		addChild(new FNFGame(game.width, game.height, InitState, game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
 		
@@ -93,6 +107,9 @@ class Main extends Sprite
 		#if CRASH_HANDLER
 		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
 		#end
+
+		#if android FlxG.android.preventDefaultKeys = [BACK]; #end
+		LimeSystem.allowScreenTimeout = ClientPrefs.data.screensaver;
 		
 		#if DISCORD_ALLOWED DiscordClient.prepare(); #end
 	}
