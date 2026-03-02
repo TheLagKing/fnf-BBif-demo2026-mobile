@@ -55,5 +55,4 @@ import flixel.group.FlxSpriteGroup;
 import flixel.group.FlxGroup.FlxTypedGroup;
 
 using StringTools;
-using funkin.backend.FlxObjectTools;
 #end
