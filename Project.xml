@@ -22,8 +22,8 @@
 	<setenv name="HAXEPATH" value="./"/>
 	<!-- ______________________ PSYCH ENGINE CUSTOMIZATION ______________________ -->
 
-	<define name="MODS_ALLOWED" if="desktop" />
-	<define name="HSCRIPT_ALLOWED" if="desktop" />
+	<define name="MODS_ALLOWED" if="desktop || mobile" />
+	<define name="HSCRIPT_ALLOWED" if="desktop || mobile" />
 	<define name="LUA_ALLOWED" if="cpp" />
 	<define name="VIDEOS_ALLOWED" if="cpp"/>
 	<define name="DISCORD_ALLOWED" if="cpp"/>
@@ -42,7 +42,7 @@
 	<window if="desktop" orientation="landscape" fullscreen="false" resizable="true" vsync="false"/>
 
 	<!--Mobile-specific-->
-	<window if="mobile" orientation="landscape" fullscreen="true" width="0" height="0" resizable="false"/>
+	<window if="mobile" orientation="landscape" fullscreen="true" resizable="false" allow-shaders="true" require-shaders="true" allow-high-dpi="true"/>
 
 	<!--Switch-specific-->
 	<window if="switch" orientation="landscape" fullscreen="true" width="0" height="0" resizable="true" />
@@ -118,7 +118,7 @@
     </section>
 
 	<!-- Turn on Crash Handler -->
-	<haxedef name="CRASH_HANDLER" if="desktop" />
+	<haxedef name="CRASH_HANDLER" if="desktop || mobile" />
 
 	<!--improves hscript tracing-->
 	<haxedef name="hscriptPos" if="HSCRIPT_ALLOWED"/>
