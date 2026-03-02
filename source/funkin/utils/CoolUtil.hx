@@ -136,6 +136,16 @@ class CoolUtil
 		FlxG.error("Platform is not supported for CoolUtil.openFolder");
 		#end
 	}
+
+	public static function showPopUp(message:String, title:String):Void
+	{
+		FlxG.stage.window.alert(message, title);
+	}
+
+	public static function getCPUThreadsCount():Int
+    {
+        return 1;
+	}
 	
 	/**
 		Helper Function to Fix Save Files for Flixel 5
