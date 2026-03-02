@@ -16,8 +16,6 @@ import funkin.backend.BaseStage;
 import funkin.backend.Difficulty;
 import funkin.backend.Mods;
 
-import funkin.data.ClientPrefs;
-
 import funkin.utils.CoolUtil;
 import funkin.utils.MathUtil;
 
