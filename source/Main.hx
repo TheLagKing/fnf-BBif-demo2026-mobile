@@ -141,10 +141,11 @@ class Main extends Sprite
 		}
 		
 		errMsg += "\nUncaught Error: " + e.error;
-		
+
+		#if sys
 		if (!FileSystem.exists("./crash/")) FileSystem.createDirectory("./crash/");
-		
 		File.saveContent(path, errMsg + "\n");
+		#end
 		
 		Sys.println(errMsg);
 		Sys.println("Crash dump saved in " + Path.normalize(path));
