@@ -201,24 +201,32 @@ class CopyState extends MusicBeatState
 	public static function checkExistingFiles():Bool
 	{
 		locatedFiles = OpenFLAssets.list();
-		
-		locatedFiles = locatedFiles.map(function(f) {
-		return f.indexOf(":") != -1 ? f.split(":")[1] : f;
-		});
-		locatedFiles = locatedFiles.filter(folder -> folder.startsWith('assets/'));
-		
+
+		// removes unwanted assets
+		var assets = locatedFiles.filter(folder -> folder.startsWith('assets/'));
+		locatedFiles = locatedFiles.filter(file -> !FileSystem.exists(file));
+
 		var filesToRemove:Array<String> = [];
 
 		for (file in locatedFiles)
 		{
-			if (FileSystem.exists(file) || OpenFLAssets.exists(getFile(Path.join([Path.directory(getFile(file)), IGNORE_FOLDER_FILE_NAME]))))
+			if (filesToRemove.contains(file))
+				continue;
+
+			if(file.endsWith(IGNORE_FOLDER_FILE_NAME) && !directoriesToIgnore.contains(Path.directory(file)))
+				directoriesToIgnore.push(Path.directory(file));
+
+			if (directoriesToIgnore.length > 0)
 			{
-				filesToRemove.push(file);
+				for (directory in directoriesToIgnore)
+				{
+					if (file.startsWith(directory))
+						filesToRemove.push(file);
+				}
 			}
 		}
 
-		for (file in filesToRemove)
-			locatedFiles.remove(file);
+		locatedFiles = locatedFiles.filter(file -> !filesToRemove.contains(file));
 
 		maxLoopTimes = locatedFiles.length;
 
