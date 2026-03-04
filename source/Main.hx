@@ -59,7 +59,7 @@ class Main extends Sprite
 		{
 			width: 1280, // WINDOW width
 			height: 720, // WINDOW height
-			initialState: funkin.states.MainMenuState, // initial game state
+			initialState: CopyState, // initial game state
 			framerate: 60, // default framerate
 			skipSplash: true, // if the default flixel splash screen should be skipped
 			startFullscreen: false // if the game should start at fullscreen mode
@@ -95,7 +95,7 @@ class Main extends Sprite
 		#end
 		*/
 		ClientPrefs.tryBindingSave('funkin');
-		addChild(new FNFGame(game.width, game.height, #if (mobile && MODS_ALLOWED) CopyState.checkExistingFiles() ? InitState : CopyState #else InitState #end, game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
+		addChild(new FNFGame(game.width, game.height, InitState, game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
 		
 		FPSCounter.init();
 		
@@ -109,7 +109,7 @@ class Main extends Sprite
 		#end
 
 		#if android FlxG.android.preventDefaultKeys = [BACK]; #end
-		LimeSystem.allowScreenTimeout = ClientPrefs.data.screensaver;
+		//LimeSystem.allowScreenTimeout = ClientPrefs.data.screensaver;
 		
 		#if DISCORD_ALLOWED DiscordClient.prepare(); #end
 	}
