@@ -8,7 +8,7 @@ import flixel.util.FlxTimer;
 
 class FlxSplashIntro extends MusicBeatState
 {
-	#if cpp
+	#if VIDEOS_ALLOWED
 	var videoInstance:hxvlc.flixel.FlxVideo;
 	#end
 	
@@ -16,7 +16,7 @@ class FlxSplashIntro extends MusicBeatState
 	{
 		super.create();
 		
-		#if cpp
+		#if VIDEOS_ALLOWED
 		videoInstance = new hxvlc.flixel.FlxVideo();
 		
 		FlxG.game.addChild(videoInstance);
@@ -38,7 +38,7 @@ class FlxSplashIntro extends MusicBeatState
 	
 	function exitState()
 	{
-		#if cpp
+		#if VIDEOS_ALLOWED
 		FlxG.game.removeChild(videoInstance);
 		videoInstance?.dispose();
 		videoInstance = null;
