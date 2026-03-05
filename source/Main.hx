@@ -95,7 +95,7 @@ class Main extends Sprite
 		#end
 		*/
 		ClientPrefs.tryBindingSave('funkin');
-		addChild(new FNFGame(game.width, game.height, game.initialState, game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
+		addChild(new FlxGame(game.width, game.height, game.initialState, game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
 		
 		FPSCounter.init();
 		
