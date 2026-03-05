@@ -59,6 +59,7 @@
 	<!-- __________________________ Game Assets & Etc. __________________________ -->
 
 	<assets path="assets" />
+	<assets path="assets/mobile" if="mobile"/>
 
 	<assets path='art/alsoft.ini' rename='alsoft.ini' if="windows"/>
 	<assets path='art/alsoft.ini' rename='alsoft.conf' if="mac"/>
