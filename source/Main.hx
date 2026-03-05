@@ -109,7 +109,7 @@ class Main extends Sprite
 		#end
 
 		#if android FlxG.android.preventDefaultKeys = [BACK]; #end
-		//LimeSystem.allowScreenTimeout = ClientPrefs.data.screensaver;
+		LimeSystem.allowScreenTimeout = ClientPrefs.data.screensaver;
 		
 		#if DISCORD_ALLOWED DiscordClient.prepare(); #end
 	}
