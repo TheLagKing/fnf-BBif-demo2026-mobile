@@ -42,8 +42,8 @@ class InitState extends FlxState
 		
 		funkin.backend.Highscore.load();
 		
-		#if LUA_ALLOWED funkin.backend.Mods.pushGlobalMods(); #end
-		funkin.backend.Mods.loadTopMod();
+		#if LUA_ALLOWED funkin.backend.Mods.pushGlobalMods();
+		funkin.backend.Mods.loadTopMod(); #end
 		
 		FlxG.fixedTimestep = false;
 		FlxG.game.focusLostFramerate = 60;
