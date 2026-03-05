@@ -59,7 +59,7 @@ class Main extends Sprite
 		{
 			width: 1280, // WINDOW width
 			height: 720, // WINDOW height
-			initialState: CopyState, // initial game state
+			initialState: funkin.states.MainMenuState, // initial game state
 			framerate: 60, // default framerate
 			skipSplash: true, // if the default flixel splash screen should be skipped
 			startFullscreen: false // if the game should start at fullscreen mode
@@ -95,7 +95,7 @@ class Main extends Sprite
 		#end
 		*/
 		ClientPrefs.tryBindingSave('funkin');
-		addChild(new FlxGame(game.width, game.height, game.initialState, game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
+		addChild(new FlxGame(game.width, game.height, #if (mobile && MODS_ALLOWED) CopyState.checkExistingFiles() ? InitState : CopyState #else InitState #end, game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
 		
 		FPSCounter.init();
 		
@@ -161,11 +161,12 @@ class FNFGame extends FlxGame
 {
 	override function create(_:Event)
 	{
+		#if !mobile
 		_customSoundTray = CustomSoundTray;
-		super.create(_);
-		
 		FlxG.sound.soundTray.volumeDownSound = 'assets/sounds/soundTrayMinus';
 		FlxG.sound.soundTray.volumeUpSound = 'assets/sounds/soundTrayPlus';
+		#end
+		super.create(_);
 		
 		// // KILL EVERYONE
 		// // atleast we arent shadowing flixel classes yahoo!
