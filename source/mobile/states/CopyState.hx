@@ -53,7 +53,7 @@ class CopyState extends MusicBeatState
 		shouldCopy = true;
 
 		add(new FlxSprite(0, 0).makeGraphic(FlxG.width, FlxG.height, 0xfffde871));
-/*
+
 		loadingImage = new FlxSprite(0, 0, Paths.image('menus/wall'));
 		loadingImage.setGraphicSize(0, FlxG.height);
 		loadingImage.updateHitbox();
@@ -64,7 +64,7 @@ class CopyState extends MusicBeatState
 		logo.updateHitbox();
 		logo.screenCenter();
 		add(logo);
-*/
+
 		loadingBar = new FlxBar(0, FlxG.height - 26, FlxBarFillDirection.LEFT_TO_RIGHT, FlxG.width, 26);
 		loadingBar.setRange(0, maxLoopTimes);
 		add(loadingBar);
