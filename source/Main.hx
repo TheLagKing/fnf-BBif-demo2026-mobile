@@ -74,7 +74,7 @@ class Main extends Sprite
 	{
 		super();
 		
-		#if (windows && cpp && !debug)
+		#if (windows && !debug)
 		funkin.backend.system.Windows.setDpiAware();
 		#end
 
