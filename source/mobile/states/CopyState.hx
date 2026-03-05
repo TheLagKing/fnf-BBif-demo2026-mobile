@@ -1,7 +1,7 @@
 package mobile.states;
 
 #if mobile
-import TeachersLoungeIntro;
+import InitState;
 import lime.utils.Assets as LimeAssets;
 import openfl.utils.Assets as OpenFLAssets;
 import openfl.utils.ByteArray;
@@ -44,7 +44,7 @@ class CopyState extends MusicBeatState
 		checkExistingFiles();
 		if (maxLoopTimes <= 0)
 		{
-			FlxG.switchState(new TeachersLoungeIntro());
+			FlxG.switchState(new InitState());
 			return;
 		}
 
@@ -106,7 +106,7 @@ class CopyState extends MusicBeatState
 				
 				FlxG.sound.play(Paths.sound('confirmMenu')).onComplete = () ->
 				{
-					FlxG.switchState(new TeachersLoungeIntro());
+					FlxG.switchState(new InitState());
 				};
 		
 				canUpdate = false;
