@@ -1,0 +1,80 @@
+name: Mobile-Ios
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  Build-iOS:
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Determine Version
+        id: ver
+        run: |
+          if git describe --tags --exact-match >/dev/null 2>&1; then
+            echo "version=$(git describe --tags --exact-match)" >> $GITHUB_OUTPUT
+          else
+            echo "version=dev-$(date +'%Y%m%d-%H%M')" >> $GITHUB_OUTPUT
+          fi
+
+      - uses: krdlab/setup-haxe@master
+        with:
+          haxe-version: 4.3.6
+
+      - name: Install Haxelib Dependencies
+        run: |
+          haxelib install hxpkg --global
+          haxelib run hxpkg setup --global
+          haxelib run hxpkg install
+
+      - name: Generate iOS C++
+        run: |
+          haxelib run lime build ios -nosign -DofficialBuild -DMOBILE_BUILD -D HXCPP_CPP11 || true
+
+      - name: Patch thx.Nil automatically
+        run: |
+          echo "=== Running UNIVERSAL thx.Nil PATCHER ==="
+
+          ROOTS=(
+            "./export/ios/obj"
+            "./bin/ios/BaldiFunkin/haxe/build"
+            "./bin/ios/BaldiFunkin/haxe/build/Release-iphoneos-64"
+          )
+
+          patched=0
+
+          for root in "${ROOTS[@]}"; do
+            if [ ! -d "$root" ]; then
+              continue
+            fi
+
+            # Find all C/C++/ObjC++ files and patch Nil → ThxNil
+            while IFS= read -r -d '' file; do
+              perl -pi -e 's/\bNil\b/ThxNil/g; s/thx::Nil/thx::ThxNil/g' "$file" && patched=$((patched+1))
+            done < <(find "$root" -type f \( -name "*.h" -o -name "*.hpp" -o -name "*.cpp" -o -name "*.mm" \) -print0)
+          done
+
+          echo "Patched ${patched} file(s)."
+          echo "=== Patch Completed ==="
+
+      - name: Build iOS (Final)
+        run: |
+          haxelib run lime build ios -nosign -DofficialBuild -DMOBILE_BUILD -D HXCPP_CPP11
+
+      - name: Package IPA
+        run: |
+          cd export/release/ios/build/*-iphoneos
+          mkdir Payload
+          mv *.app Payload/
+          zip -r ~/ios-${{ steps.ver.outputs.version }}.ipa Payload
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ios-ipa
+          path: ~/ios-*.ipa
